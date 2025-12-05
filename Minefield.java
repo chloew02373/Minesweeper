@@ -23,8 +23,10 @@ public class Minefield {
      * 
     */
     private Cell[][] field;
+
     private int rows;
     private int columns;
+    
     private int mines;
     private int flags;
     private int revealedCells;
@@ -54,6 +56,7 @@ public class Minefield {
         this.flags = flags;
         this.revealedCells = 0;
         this.debugMode = false;
+
         field = new Cell[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -61,19 +64,23 @@ public class Minefield {
             }
         }
 
+        // TODO: randomly place mines and evaluate field
+
+
     }
 
     /**
      * evaluateField
      * 
-     *
+     * 
      * @function:
      * Evaluate entire array.
      * When a mine is found check the surrounding adjacent tiles. If another mine is found during this check, increment adjacent cells status by 1.
      * 
      */
     public void evaluateField() {
-        
+        // Would this method be best called after createMines()?
+        // 
     }
 
     /**
@@ -153,9 +160,11 @@ public class Minefield {
      * Reveal the cells that contain zeroes that surround the inputted cell.
      * Continue revealing 0-cells in every direction until no more 0-cells are found in any direction.
      * Utilize a STACK to accomplish this.
+     * 
+     * I think a stack would be used here to implement a depth-first search (DFS) approach, allowing us to explore as far as possible along each branch before backtracking.
      *
      * This method should follow the psuedo-code given in the lab writeup.
-     * Why might a stack be useful here rather than a queue?
+     * Why might a **stack** be useful here rather than a **queue**?
      *
      * @param x      The x value the user entered.
      * @param y      The y value the user entered.
@@ -172,6 +181,8 @@ public class Minefield {
      * 
      * This method should follow the psuedo-code given in the lab writeup.
      * Why might a queue be useful for this function?
+     * 
+     * Looks like a breadth-first search (BFS) approach would be appropriate here, allowing us to explore all neighbors at the present depth prior to moving on to nodes at the next depth level.
      *
      * @param x     The x value the user entered.
      * @param y     The y value the user entered.
@@ -203,6 +214,18 @@ public class Minefield {
      */
     @Override
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Cell cell = field[i][j];
+                if (cell.getRevealed()) {
+                    sb.append("[").append(cell.getStatus()).append("]");
+                } else {
+                    sb.append("[ ]");
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
