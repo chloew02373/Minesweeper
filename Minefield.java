@@ -225,7 +225,7 @@ public class Minefield {
      * @param y The y value the user entered.
      */
     public void revealZeroes(int x, int y) {
-
+            
     }
 
     /**
@@ -272,14 +272,12 @@ public class Minefield {
                 Cell cell = field[i][j];
                 if (cell.getStatus().equals("M")) {
                     System.out.print(ANSI_RED + "[M]" + ANSI_GREY_BACKGROUND);
-                } else if (cell.getStatus().equals("F")) {
-                    System.out.print(ANSI_BLUE + "[F]" + ANSI_GREY_BACKGROUND);
-                } else if (cell.getRevealed()) {
-                    System.out.print(ANSI_GREEN + "[" + cell.getStatus() + "]" + ANSI_GREY_BACKGROUND);
                 } else {
-                    System.out.print("[ ]");
+                    String status = cell.getStatus();
+                    System.out.print("[" + (status.equals(" ") ? " " : status) + "]");
                 }
             }
+            System.out.println();
         }
     }
 
